@@ -1,3 +1,8 @@
+# Coursera: AI for Medical Course
+Summarize, assignment (Jupyter notebook), labs (Jupyter Notebook) from the Coursera's AI for Medical Course.
+
+![](img/2021-01-09-19-23-42.png)
+
 # Key Concepts
 
 ## Week 1: Summary
