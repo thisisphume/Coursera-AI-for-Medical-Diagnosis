@@ -3,6 +3,50 @@ Summarize, assignment (Jupyter notebook), labs (Jupyter Notebook) from the Cours
 
 ![](img/2021-01-09-19-23-42.png)
 
+# Table of Contents
+- [Coursera: AI for Medical Course](#coursera-ai-for-medical-course)
+- [Table of Contents](#table-of-contents)
+- [Key Concepts](#key-concepts)
+  - [Week 1: Summary](#week-1-summary)
+    - [Application of Computer Vision to Medical Diagnosis](#application-of-computer-vision-to-medical-diagnosis)
+    - [Building and Training a Model for Medical Diagnosis](#building-and-training-a-model-for-medical-diagnosis)
+      - [Challenge 1: Class Imbalance - More Normal example than Mass's example.](#challenge-1-class-imbalance---more-normal-example-than-masss-example)
+      - [Challenge 2: Multi-Task Classifier (A simplest case of multi-task learning)](#challenge-2-multi-task-classifier-a-simplest-case-of-multi-task-learning)
+      - [Challenge 3: Dataset Size - Medical image datasets typically have 10,000 to 100,000 examples.](#challenge-3-dataset-size---medical-image-datasets-typically-have-10000-to-100000-examples)
+    - [Model Testing](#model-testing)
+    - [Ground truth or Consensus Voting (in medical field)](#ground-truth-or-consensus-voting-in-medical-field)
+  - [Week 2: Summary](#week-2-summary)
+    - [Key Evaluation Metrics](#key-evaluation-metrics)
+    - [PPV and NPV](#ppv-and-npv)
+    - [Confusion Matrix](#confusion-matrix)
+    - [ROC Curve and Threshold](#roc-curve-and-threshold)
+    - [Sampling from the total population](#sampling-from-the-total-population)
+  - [Week 3: Summary](#week-3-summary)
+    - [MRI Lab](#mri-lab)
+    - [MRI Data](#mri-data)
+    - [Segmentation](#segmentation)
+    - [2D and 3D U-Net](#2d-and-3d-u-net)
+    - [Data Augmentation for Segmentation](#data-augmentation-for-segmentation)
+    - [Loss Function](#loss-function)
+    - [Practical Consideration](#practical-consideration)
+    - [Measuring Patient Outcomes](#measuring-patient-outcomes)
+- [Assignment Overview](#assignment-overview)
+  - [Assignment 1:  CXR Classification via Densenet](#assignment-1--cxr-classification-via-densenet)
+    - [Key Processes:](#key-processes)
+  - [Assignment 2: Evaluation of Diagnostic Models](#assignment-2-evaluation-of-diagnostic-models)
+  - [Assignment 3: Segmentation Model for MRI Scan](#assignment-3-segmentation-model-for-mri-scan)
+    - [Data: there are 484 training images (80:20 training-testing split).](#data-there-are-484-training-images-8020-training-testing-split)
+    - [Data Pre-processing](#data-pre-processing)
+  - [Metrics: Dice Similarity Coefficient](#metrics-dice-similarity-coefficient)
+- [Labs](#labs)
+  - [Lab 1.1](#lab-11)
+  - [Lab 1.2: Loss function (Binary, Weighted Binary, Weighted Multi-Class problem)](#lab-12-loss-function-binary-weighted-binary-weighted-multi-class-problem)
+  - [Lab 1.3: Introduction to Densenet](#lab-13-introduction-to-densenet)
+  - [Lab 1.4: Checking if there is Data Leakage](#lab-14-checking-if-there-is-data-leakage)
+  - [Lab 3.1: Exploring Brain MRI data](#lab-31-exploring-brain-mri-data)
+  - [Lab 3.2: Extract a sub-section of the data](#lab-32-extract-a-sub-section-of-the-data)
+  - [Lab 3.3: Creating a basic U-Net using Keras](#lab-33-creating-a-basic-u-net-using-keras)
+
 # Key Concepts
 
 ## Week 1: Summary
@@ -228,7 +272,7 @@ Example:
     - Contracting path: the feature map get smaller. It consists of repeating convolution (called down convolution) and pooling layers.
     - expanding path: it takes small features maps through series of up-sampling and up convolution layers to get back to the original size of the image. 
     - Output: the probability of being a tumor is assigned for each pixel.
-  - The network is trained on the input/output pair of 2D slice. 
+  - The network is trained on the input/output pair of 2D slice. However, you could lose come context between slices.
     
     ![](img/2021-01-08-23-06-19.png)
   
@@ -244,12 +288,12 @@ If you would like more detail, start with this blog post by Heet Sankesara [“U
 To go deeper, you can read the original research paper [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf) by Olaf Ronneberger, Philipp Fischer, Thomas Brox
 
 
-## Data Augmentation for Segmentation
+### Data Augmentation for Segmentation
 - Unlike the data augmentation in 2D, in segmentation, the transformation need to apply to both input and output and it need to be apply on 3D. 
 
   ![](img/2021-01-08-23-50-52.png)
 
-## Loss Function
+### Loss Function
 - Example (in 2D), 
   - P = the output from the model where $p_i$ is the predicted probability of tumor in pixel ith.
   - G = ground truth (1:tumor, 0:normal)
@@ -263,7 +307,7 @@ To go deeper, you can read the original research paper [U-Net: Convolutional Net
   - High loss $\equiv$ small overlap, Low loss $\equiv$ high overlap, 
   ![](img/2021-01-08-23-56-30.png)
 
-## Practical Consideration
+### Practical Consideration
 - Generalization is hard.
   - Example 1: The model trained with US patient's data won't work with the patient from India.
   - Example 2: Resolution in brain MRI scan are much different across hospital. 
@@ -274,12 +318,27 @@ To go deeper, you can read the original research paper [U-Net: Convolutional Net
 
   ![](img/2021-01-09-00-06-54.png)
 
+  To overcome the generalization problem, we can fine-tune the model using a fraction of data from the new population.
+
+  ![](img/2021-01-09-11-02-41.png)
+
+### Measuring Patient Outcomes
+- In the model development perspective, we can look at the AUROC (classification) and Dice score (Soft Dice Loss for Segmentation). However, in real world (deployment), we want to see how effective the model is on the real patient. Decision Curve Analysis or Randomized Controlled Trials can be used to measure whether the model actually help improve the patient's health outcomes. 
+  -  Decision Curve Analysis can help quantify the net benefit of using a model to guide patient care.
+  -  Randomized Control Trial: we compare patient outcomes for patients on whom the AI algorithm is applied versus those on whom the AI algorithm is not applied. 
+    
+    ![](img/2021-01-09-11-52-26.png)
+
+- Bias Model? In the real world, we would want to analyze the effect of the model not just overall, but also on subgroups of the population. This would include patients of different ages, sex, and socioeconomic status. 
+
+    ![](img/2021-01-09-11-57-35.png)
+
 ***
 ***
 
-# Assignment
+# Assignment Overview
 
-## Assignment 1
+## Assignment 1:  CXR Classification via Densenet
 For this assignment, we will be using the [ChestX-ray8 dataset](https://arxiv.org/abs/1705.02315) which contains 108,948 frontal-view X-ray images of 32,717 unique patients. 
 - Each image in the data set contains multiple text-mined labels identifying 14 different pathological conditions. 
 - These in turn can be used by physicians to diagnose 8 different diseases. 
@@ -400,7 +459,7 @@ $$\mathcal{L}_{cross-entropy}(\mathcal{D}) = - \frac{1}{N}\big( \sum_{\text{posi
 
 
 
-
+***
 
 ## Assignment 2: Evaluation of Diagnostic Models
 - Topics: Accuracy, Prevalence, Specificity, Sensitivity, PPV & NPV, ROC, AUCROC, and confidence interval using the imbalance sample as an example. 
@@ -460,7 +519,40 @@ $$\mathcal{L}_{cross-entropy}(\mathcal{D}) = - \frac{1}{N}\big( \sum_{\text{posi
 
     ![](img/2021-01-08-12-57-43.png)
 
-## Assignment 3
+## Assignment 3: Segmentation Model for MRI Scan
+- Objective: Building a multi-class segmentation model. We'll identify 3 different abnormalities in each image: **edemas**, **non-enhancing tumors**, and **enhancing tumors**.
+
+### Data: there are 484 training images (80:20 training-testing split).
+- The data come from the [Decathlon 10 Challenge](https://decathlon-10.grand-challenge.org). This data has been mostly pre-processed for the competition participants however in real practice, MRI data needs to be significantly pre-preprocessed before we can use it to train our models.
+  - Input data: an image file containing a 4D array of MRI in the shape of (240, 240, 155, 4). The fourth dimension is the value for 4 different sequences: 
+    - 0: FLAIR: "Fluid Attenuated Inversion Recovery" (FLAIR)
+    - 1: T1w: "T1-weighted"
+    - 2: t1gd: "T1-weighted with gadolinium contrast enhancement" (T1-Gd)
+    - 3: T2w: "T2-weighted"
+
+    ![](img/2021-01-09-15-25-15.png)
+
+  - Label data: a 3D array with the shape of (240, 240, 155). The integer values in this array indicate the "label" for each voxel in the corresponding image files:
+    - 0: background
+    - 1: edema (red)
+    - 2: non-enhancing tumor (green) 
+    - 3: enhancing tumor (blue)
+  
+    ![](img/2021-01-09-15-36-48.png)
+
+### Data Pre-processing
+- **Randomly** sampled sub-volumes of shape [160,160,16] from our images to generate spatially consistent sub-volumes of the data because fitting the entire volume won't fit inside the smaller memory/GPU. The patch must have at most 95% non-tumor regions (background).
+- Standardization (mean 0 and stDev 1): standardizes the values across each channel and each Z plane to have a mean of zero and standard deviation of 1.
+
+## Metrics: Dice Similarity Coefficient
+-  A common loss for segmentation tasks is the Dice similarity coefficient, which is a measure of how well two contours overlap. It ranges from 0 (complete mismatch) to 1 (perfect match).
+$$\text{DSC}(A, B) = \frac{2 \times |A \cap B|}{|A| + |B|}.$$
+
+- Dice coefficient for multiple classes: 
+$$DC(f, x, y) = \frac{1}{N} \sum_{c=1}^{C} \left ( DC_{c}(f, x, y) \right )$$
+
+- Multi-Class Soft Dice Loss: The dice coefficient is not the best for training because it takes in discrete values (0,1), however, the model output the probability that each pixel is a tumor or not. 
+  $$\mathcal{L}_{Dice}(p, q) = 1 - \frac{1}{N} \sum_{c=1}^{C} \frac{2\times\sum_{i, j} p_{cij}q_{cij} + \epsilon}{\left(\sum_{i, j} p_{cij}^2 \right) + \left(\sum_{i, j} q_{cij}^2 \right) + \epsilon}$$
 
 
 ***
