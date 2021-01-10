@@ -731,7 +731,7 @@ hue-6-2: #e6c07b
     <body class="vscode-body vscode-light">
         <h1 id="coursera-ai-for-medical-course">Coursera: AI for Medical Course</h1>
 <p>Summarize, assignment (Jupyter notebook), labs (Jupyter Notebook) from the Coursera's AI for Medical Course.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-09-19-23-42.png" alt=""></p>
+<p><img src="img/2021-01-09-19-23-42.png" alt=""></p>
 <h1 id="table-of-contents">Table of Contents</h1>
 <ul>
 <li><a href="#coursera-ai-for-medical-course">Coursera: AI for Medical Course</a></li>
@@ -822,15 +822,15 @@ hue-6-2: #e6c07b
 <ul>
 <li>
 <p><strong>Example 1 In Dermatology:</strong> Using the CovNet to determine whether the region of skin tissue is cancer or not. Based on the following paper, the prediction from the model is as good as the prediction from the dermatologist. Reference: <a href="https://www.nature.com/articles/nature21056">Dermatologist-level classification of skin cancer with deep neural networks</a></p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-17-46-17.png" alt=""></p>
+<p><img src="img/2021-01-06-17-46-17.png" alt=""></p>
 </li>
 <li>
 <p><strong>Example 2 Ophthalmology (Eye Disease):</strong> Given the <em>Retinal Fundus Photos</em> of an eyes, the model can be used to identify whether the patient has <strong>Diabetic Retinopathy</strong>, i.e. the damage cause by the diabetes which can lead blindness. Reference: <a href="https://www.nature.com/articles/s41433-018-0269-y">Fundus photograph-based deep learning algorithms in detecting diabetic retinopathy</a></p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-17-48-04.png" alt=""></p>
+<p><img src="img/2021-01-06-17-48-04.png" alt=""></p>
 </li>
 <li>
 <p><strong>Eg 3 Histopathology (Cancer Diagnosis)</strong>: Given a whole-slide image (microscopic tissue scan), determine whether the cancer has spread. Usually that the whole-slide images is very large, several patches are extracted and used to train the model, this is known as Data Augmentation techniques. Reference: <a href="https://pubmed.ncbi.nlm.nih.gov/30312179/">Impact of Deep Learning Assistance on the Histopathologic Review of Lymph Nodes for Metastatic Breast Cancer.</a></p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-09-54-41.png" alt=""></p>
+<p><img src="img/2021-01-07-09-54-41.png" alt=""></p>
 </li>
 </ul>
 <h3 id="building-and-training-a-model-for-medical-diagnosis">Building and Training a Model for Medical Diagnosis</h3>
@@ -838,13 +838,13 @@ hue-6-2: #e6c07b
 <ul>
 <li>
 <p>Example: Given an X-ray image, identify if there is a mass? (In medical field, a Mass is a lesion that is greater 3 cm. in diameter.)</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-18-20-13.png" alt=""></p>
+<p><img src="img/2021-01-06-18-20-13.png" alt=""></p>
 </li>
 </ul>
 <h3 id="3-key-challenges-class-imbalance-multi-task-dataset-size">3 Key Challenges: Class imbalance, Multi-Task, Dataset Size</h3>
 <h4 id="challenge-1-class-imbalance---weighted-loss--resampling"><strong>Challenge 1: Class Imbalance - Weighted Loss &amp; Resampling</strong></h4>
 <p>Imbalance problem is a very common problem in medical field. We usually have less sample from the anomaly/defect class. For example, the eye disease dataset, there are 30% of Diabetic Retinopathy and 70% of Non Diabetic Retinopathy. This yields a model that starts to predict a low probability of disease for everybody, if we are using the generic binary loss.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-17-50-22.png" alt=""></p>
+<p><img src="img/2021-01-06-17-50-22.png" alt=""></p>
 <p>Consider the binary Cross-entropy loss,</p>
 <section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo stretchy="false">(</mo><mi>X</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.3599999999999999em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mi>l</mi><mi>o</mi><mi>g</mi><mtext> </mtext><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>if </mtext><mstyle scriptlevel="0" displaystyle="false"><mi>y</mi><mo>=</mo><mn>1</mn></mstyle></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mi>l</mi><mi>o</mi><mi>g</mi><mtext> </mtext><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mn>0</mn><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext>if </mtext><mstyle scriptlevel="0" displaystyle="false"><mi>y</mi><mo>=</mo><mn>0</mn></mstyle></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">  L(X,y) =
   \begin{cases}
@@ -866,16 +866,16 @@ hue-6-2: #e6c07b
 </li>
 </ul>
 <p>Impact of Class Imbalance on Loss Calculation: we can see in the figure below that most of the contribution of the loss come from the normal class so the model will try to get the normal class right.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-18-40-40.png" alt=""></p>
+<p><img src="img/2021-01-06-18-40-40.png" alt=""></p>
 <p><strong>Solution 1</strong>: <code>Weighted Loss</code> - modifying the loss function to make every classes have the same amount of contribution.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-18-43-01.png" alt=""> <img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-18-43-52.png" alt=""></p>
+<p><img src="img/2021-01-06-18-43-01.png" alt=""> <img src="img/2021-01-06-18-43-52.png" alt=""></p>
 <p><strong>Solution 2</strong>: Resampling (Over-sampling / Under-sampling) the data such that we have the same number of observation for each class. Then, we can use standard binary cross-entropy loss.</p>
 <h4 id="challenge-2-multi-task-learning-and-loss">Challenge 2: Multi-Task Learning and Loss</h4>
 <p>Have model that can perform multiple task i.e. &quot;Mass vs No-Mass&quot;, Pneumonia vs No-Pneumonia&quot;, &quot;Edema vs No-Edema&quot;. The benefit of multi-task model is that each task might share information that could enable the model to generalize better on each original task.</p>
 <p>Assume we have 3 classification tasks, the output is a 3-dimensional vector. We are using the Weighted Multi-Label loss which is just the sum of the all individual loss. Note that, the weight of each loss are different for different label.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-20-33-42.png" alt="">
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-20-35-17.png" alt="">
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-20-37-39.png" alt=""></p>
+<p><img src="img/2021-01-06-20-33-42.png" alt="">
+<img src="img/2021-01-06-20-35-17.png" alt="">
+<img src="img/2021-01-06-20-37-39.png" alt=""></p>
 <p>Addition resource on Multi-Task Learning: <a href="https://ruder.io/multi-task/">An Overview of Multi-Task Learning in Deep Neural Networks (2017)</a></p>
 <ul>
 <li>Two method Hard parameter sharing and soft parameter sharing.</li>
@@ -884,14 +884,14 @@ hue-6-2: #e6c07b
 </ul>
 <h4 id="challenge-3-dataset-size---transfer-learning-and-data-augmentation">Challenge 3: Dataset Size - Transfer Learning and Data Augmentation</h4>
 <p>Medical image datasets typically have 10,000 to 100,000 examples.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-20-39-12.png" alt=""></p>
+<p><img src="img/2021-01-06-20-39-12.png" alt=""></p>
 <p>CNN is one of the most common method to analyze the medical Imaging problem, such as 2D X-ray, CT Scan, and medical Signal processing, but it is very data hungry. There are many CNN architecture. The standard procedure is to try them all and see which one works best.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-20-40-28.png" alt=""></p>
+<p><img src="img/2021-01-06-20-40-28.png" alt=""></p>
 <p><strong>Solution 1: Transfer Learning</strong> Since we don't have a lot of data, we use <strong>pre-trained</strong> network and <strong>fine-tune</strong> it. The pre-trained network will learn the general feature that will help its learning on the medical task i.e. the feature that defines edges on penguin might be helpful for identify edges on the lung. There are 2 options in fine tuning: Fine tune all the layer and don't fine tune all the features (freeze the features learned by the shallow network and just fine tune the deeper layer).</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-22-32-15.png" alt="">
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-22-34-58.png" alt=""></p>
+<p><img src="img/2021-01-06-22-32-15.png" alt="">
+<img src="img/2021-01-06-22-34-58.png" alt=""></p>
 <p><strong>Solution 2: Data Augmentation:</strong> rotating / translating side way / zooming in / changing the brightness and contrast / adding the color noise</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-22-39-52.png" alt=""> <img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-22-43-16.png" alt=""></p>
+<p><img src="img/2021-01-06-22-39-52.png" alt=""> <img src="img/2021-01-06-22-43-16.png" alt=""></p>
 <p>In practice, 2 questions that drive the choice of the transformation:</p>
 <ul>
 <li>Do augmentation reflect the variation in real world?</li>
@@ -899,9 +899,9 @@ hue-6-2: #e6c07b
 </ul>
 <h3 id="model-testing-data-splitting-independently-and-minority-sampling">Model Testing: Data Splitting (Independently) and Minority Sampling</h3>
 <p><strong>Splitting</strong> the data (in this order) into testing set, validation set, and training set. The cross-validation is used to reduce the variability in the estimate of the model's performance. To prevent the model being overly-optimistic, the data must be split in such a way that they are all independent. For this example, a patient can have multiple scan. We must ensure that there is no patient overlap between these split.
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-22-44-55.png" alt="">
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-22-45-07.png" alt="">
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-22-51-08.png" alt=""></p>
+<img src="img/2021-01-06-22-44-55.png" alt="">
+<img src="img/2021-01-06-22-45-07.png" alt="">
+<img src="img/2021-01-06-22-51-08.png" alt=""></p>
 <p><strong>Minority Sampling:</strong> given that our data is imbalance, we might want to set a threshold number to ensure that the test set has at least X% of minority class (sometimes we set it to be 50%).</p>
 <h3 id="ground-truth-or-consensus-voting-in-medical-field">Ground truth or Consensus Voting (in medical field)</h3>
 <ul>
@@ -910,11 +910,11 @@ hue-6-2: #e6c07b
 <ul>
 <li>
 <p>We can use Consensus Voting i.e. the majority voting to help settle the disagreement.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-23-14-26.png" alt=""></p>
+<p><img src="img/2021-01-06-23-14-26.png" alt=""></p>
 </li>
 <li>
 <p>We can also use additional medical testing, e.g. using CT scan to confirm whether there is a mass in the chest x-ray.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-23-16-53.png" alt=""></p>
+<p><img src="img/2021-01-06-23-16-53.png" alt=""></p>
 </li>
 </ul>
 </li>
@@ -925,7 +925,7 @@ hue-6-2: #e6c07b
 <p>Accuracy Metric:</p>
 <section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>c</mi><mi>c</mi><mi>u</mi><mi>r</mi><mi>a</mi><mi>c</mi><mi>y</mi><mo>=</mo><mfrac><mtext>Sample Correctly Classified</mtext><mtext>Total number of sample</mtext></mfrac></mrow><annotation encoding="application/x-tex">Accuracy = \frac{\text{Sample Correctly Classified}}{\text{Total number of sample}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">c</span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.25188em;vertical-align:-0.8804400000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714399999999998em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">Total number of sample</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">Sample Correctly Classified</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804400000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></eqn></section><p><strong>Relationship between Accuracy, Sensitivity, Specificity, and Prevalence</strong></p>
 <p>We can define the accuracy in term of conditional probability: By interpreting the accuracy as the probability of being correct, i.e. <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>c</mi><mi>c</mi><mi>u</mi><mi>r</mi><mi>a</mi><mi>c</mi><mi>y</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>c</mi><mi>o</mi><mi>r</mi><mi>r</mi><mi>e</mi><mi>c</mi><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Accuracy = P(correct)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">A</span><span class="mord mathdefault">c</span><span class="mord mathdefault">c</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">a</span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mord mathdefault">t</span><span class="mclose">)</span></span></span></span></eq></p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-18-02-37.png" alt=""></p>
+<p><img src="img/2021-01-07-18-02-37.png" alt=""></p>
 <ul>
 <li>Sensitivity / True Positive Rate / P(+|disease) : Given a patient has the disease, the probability that model predicts positive. Sensitivity tells us how good the model is at correctly identifying those patients who actually have the disease and label them as having the disease.</li>
 <li>Specificity / True Negative Rate / P(-|normal) : Given a patient is normal, the probability that the model predicts negative. Specificity tells us how good the model is at correctly identifying the healthy patients as not having the disease.</li>
@@ -933,10 +933,10 @@ hue-6-2: #e6c07b
 <li>Negative (-) = predicts normal</li>
 </ul>
 <p>We can view the accuracy as the weighted average of sensitivity and specificity.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-18-05-54.png" alt="">
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-18-06-15.png" alt=""></p>
+<p><img src="img/2021-01-07-18-05-54.png" alt="">
+<img src="img/2021-01-07-18-06-15.png" alt=""></p>
 <p><strong>Example: (negative = normal)</strong></p>
-<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>i</mi><mi>t</mi><mi>i</mi><mi>v</mi><mi>i</mi><mi>t</mi><mi>y</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mo>+</mo><mi mathvariant="normal">∣</mi><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mtext>n(+ and disease)</mtext><mtext>n(disease)</mtext></mfrac><mo>=</mo><mn>2</mn><mi mathvariant="normal">/</mi><mn>3</mn><mo>=</mo><mn>0.67</mn></mrow><annotation encoding="application/x-tex">Sensitivity = P(+|disease) = \frac{\text{n(+ and disease)}}{\text{n(disease)}} = 2/3 = 0.67</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord">+</span><span class="mord">∣</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(disease)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(+ and disease)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord">/</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">6</span><span class="mord">7</span></span></span></span></span></eqn></section><section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>p</mi><mi>e</mi><mi>c</mi><mi>i</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>i</mi><mi>t</mi><mi>y</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mo>−</mo><mi mathvariant="normal">∣</mi><mi>n</mi><mi>o</mi><mi>r</mi><mi>m</mi><mi>a</mi><mi>l</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mtext>n(- and normal)</mtext><mtext>n(normal)</mtext></mfrac><mo>=</mo><mn>6</mn><mi mathvariant="normal">/</mi><mn>7</mn><mo>=</mo><mn>0.86</mn></mrow><annotation encoding="application/x-tex">Specificity = P(-|normal) = \frac{\text{n(- and normal)}}{\text{n(normal)}} = 6/7 = 0.86</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">p</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord">−</span><span class="mord">∣</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(normal)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(- and normal)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">6</span><span class="mord">/</span><span class="mord">7</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">8</span><span class="mord">6</span></span></span></span></span></eqn></section><section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mi>e</mi><mi>v</mi><mi>a</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mfrac><mtext>n(disease)</mtext><mtext>n(total)</mtext></mfrac><mo>=</mo><mn>3</mn><mi mathvariant="normal">/</mi><mn>10</mn><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">Prevalence = P(disease)) = \frac{\text{n(disease)}}{\text{n(total)}} = 3/10 = 0.3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(total)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(disease)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mord">/</span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">3</span></span></span></span></span></eqn></section><p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-18-09-05.png" alt=""></p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>i</mi><mi>t</mi><mi>i</mi><mi>v</mi><mi>i</mi><mi>t</mi><mi>y</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mo>+</mo><mi mathvariant="normal">∣</mi><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mtext>n(+ and disease)</mtext><mtext>n(disease)</mtext></mfrac><mo>=</mo><mn>2</mn><mi mathvariant="normal">/</mi><mn>3</mn><mo>=</mo><mn>0.67</mn></mrow><annotation encoding="application/x-tex">Sensitivity = P(+|disease) = \frac{\text{n(+ and disease)}}{\text{n(disease)}} = 2/3 = 0.67</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">s</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord">+</span><span class="mord">∣</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(disease)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(+ and disease)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord">/</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">6</span><span class="mord">7</span></span></span></span></span></eqn></section><section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>p</mi><mi>e</mi><mi>c</mi><mi>i</mi><mi>f</mi><mi>i</mi><mi>c</mi><mi>i</mi><mi>t</mi><mi>y</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mo>−</mo><mi mathvariant="normal">∣</mi><mi>n</mi><mi>o</mi><mi>r</mi><mi>m</mi><mi>a</mi><mi>l</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mtext>n(- and normal)</mtext><mtext>n(normal)</mtext></mfrac><mo>=</mo><mn>6</mn><mi mathvariant="normal">/</mi><mn>7</mn><mo>=</mo><mn>0.86</mn></mrow><annotation encoding="application/x-tex">Specificity = P(-|normal) = \frac{\text{n(- and normal)}}{\text{n(normal)}} = 6/7 = 0.86</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord mathdefault">p</span><span class="mord mathdefault">e</span><span class="mord mathdefault">c</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">i</span><span class="mord mathdefault">c</span><span class="mord mathdefault">i</span><span class="mord mathdefault">t</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord">−</span><span class="mord">∣</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(normal)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(- and normal)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">6</span><span class="mord">/</span><span class="mord">7</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">8</span><span class="mord">6</span></span></span></span></span></eqn></section><section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>r</mi><mi>e</mi><mi>v</mi><mi>a</mi><mi>l</mi><mi>e</mi><mi>n</mi><mi>c</mi><mi>e</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>=</mo><mfrac><mtext>n(disease)</mtext><mtext>n(total)</mtext></mfrac><mo>=</mo><mn>3</mn><mi mathvariant="normal">/</mi><mn>10</mn><mo>=</mo><mn>0.3</mn></mrow><annotation encoding="application/x-tex">Prevalence = P(disease)) = \frac{\text{n(disease)}}{\text{n(total)}} = 3/10 = 0.3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mord mathdefault">c</span><span class="mord mathdefault">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mclose">)</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(total)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(disease)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">3</span><span class="mord">/</span><span class="mord">1</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">3</span></span></span></span></span></eqn></section><p><img src="img/2021-01-07-18-09-05.png" alt=""></p>
 <h3 id="ppv-pdisease-and-npv-pnormal--">PPV P(disease|+) and NPV P(normal|- )</h3>
 <ul>
 <li>Positive predicted value (PPV), i.e. P( disease | + ). It is related to the concept of sensitivity.</li>
@@ -944,8 +944,8 @@ hue-6-2: #e6c07b
 </ul>
 <p>Example:</p>
 <section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>P</mi><mi>V</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>p</mi><mi>o</mi><mi>s</mi><mi mathvariant="normal">∣</mi><mover accent="true"><mrow><mi>p</mi><mi>o</mi><mi>s</mi></mrow><mo>^</mo></mover><mo stretchy="false">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>d</mi><mi>i</mi><mi>s</mi><mi>e</mi><mi>a</mi><mi>s</mi><mi>e</mi><mi mathvariant="normal">∣</mi><mo>+</mo><mo stretchy="false">)</mo><mo>=</mo><mfrac><mtext>n(+ and disease)</mtext><mtext>n(+)</mtext></mfrac><mo>=</mo><mn>2</mn><mi mathvariant="normal">/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">PPV = P(pos|\hat{pos}) =  P(disease|+) = \frac{\text{n(+ and disease)}}{\text{n(+)}} = 2/3 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span><span class="mord">∣</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="mord mathdefault">o</span><span class="mord mathdefault">s</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord mathdefault">a</span><span class="mord mathdefault">s</span><span class="mord mathdefault">e</span><span class="mord">∣</span><span class="mord">+</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(+)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(+ and disease)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord">/</span><span class="mord">3</span></span></span></span></span></eqn></section><section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>P</mi><mi>V</mi><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>n</mi><mi>e</mi><mi>g</mi><mi mathvariant="normal">∣</mi><mover accent="true"><mrow><mi>n</mi><mi>e</mi><mi>g</mi></mrow><mo>^</mo></mover><mo stretchy="false">)</mo><mo>=</mo><mi>P</mi><mo stretchy="false">(</mo><mi>n</mi><mi>o</mi><mi>r</mi><mi>m</mi><mi>a</mi><mi>l</mi><mi mathvariant="normal">∣</mi><mo>−</mo><mo stretchy="false">)</mo><mo>=</mo><mfrac><mtext>n(- and normal)</mtext><mtext>n(-)</mtext></mfrac><mo>=</mo><mn>6</mn><mi mathvariant="normal">/</mi><mn>7</mn></mrow><annotation encoding="application/x-tex">NPV = P(neg|\hat{neg})= P(normal|-) = \frac{\text{n(- and normal)}}{\text{n(-)}} =  6/7 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord">∣</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">n</span><span class="mord mathdefault">e</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord">∣</span><span class="mord">−</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(-)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord">n(- and normal)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">6</span><span class="mord">/</span><span class="mord">7</span></span></span></span></span></eqn></section><h3 id="confusion-matrix">Confusion Matrix</h3>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-20-55-15.png" alt="">
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-20-55-49.png" alt=""></p>
+<p><img src="img/2021-01-07-20-55-15.png" alt="">
+<img src="img/2021-01-07-20-55-49.png" alt=""></p>
 <h3 id="roc-curve-and-threshold">ROC Curve and Threshold</h3>
 <ul>
 <li>Threshold for the classification: we can set the threshold <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span></eq> such that the predicted class <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>Y</mi><mo>^</mo></mover><mo>=</mo><mn>1</mn><mo stretchy="false">(</mo><mo>+</mo><mo stretchy="false">)</mo><mtext> if </mtext><mover accent="true"><mi>P</mi><mo>^</mo></mover><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mi mathvariant="normal">∣</mi><mi>X</mi><mo stretchy="false">)</mo><mo>&gt;</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">\hat{Y}=1(+) \text{ if } \hat{P}(Y=1|X) &gt; t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9467699999999999em;vertical-align:0em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9467699999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span></span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.19677em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mopen">(</span><span class="mord">+</span><span class="mclose">)</span><span class="mord text"><span class="mord"> if </span></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9467699999999999em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.25233em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">^</span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.61508em;vertical-align:0em;"></span><span class="mord mathdefault">t</span></span></span></span></eq>
@@ -964,14 +964,14 @@ hue-6-2: #e6c07b
 <ul>
 <li>Sensitivity = P(+|disease) = 6/7 = 0.85</li>
 <li>Specificity = P(-|normal) = 6/8 = 0.75
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-23-59-18.png" alt=""></li>
+<img src="img/2021-01-07-23-59-18.png" alt=""></li>
 </ul>
 </li>
 <li>Example 2:
 <ul>
 <li>Sensitivity = P(+|disease) = 5/7 = 0.71</li>
 <li>Specificity = P(-|normal) = 7/8 = 0.88
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-00-04-02.png" alt=""></li>
+<img src="img/2021-01-08-00-04-02.png" alt=""></li>
 </ul>
 </li>
 </ul>
@@ -981,7 +981,7 @@ hue-6-2: #e6c07b
 <ul>
 <li>Getting the performance of the model on the whole population is infeasible, i.e. getting the <em>population accuracy</em> (unknown) <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span></eq> of the chest x-ray model based on all 50,000 patients in the hospital.</li>
 <li>Using the small sample to get the estimated accuracy <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>p</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\hat{p}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">p</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.16666em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span></span></span></span></eq>. We can obtain the 95% confidence interval of this estimated accuracy via repeated sample. In practice, we calculate the CI based on one sample. The larger sample size have a smaller CI.
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-00-23-08.png" alt=""></li>
+<img src="img/2021-01-08-00-23-08.png" alt=""></li>
 </ul>
 <hr>
 <h2 id="week-3-summary-toc">Week 3: Summary <a href="#table-of-contents">TOC</a></h2>
@@ -993,20 +993,20 @@ hue-6-2: #e6c07b
 <ul>
 <li>An MRI imaging sequence is a 3D volume. Each 2D image is called <em>slice</em>.</li>
 <li>A MRI sample consists of multiple imaging sequences (multiple 3D volumes).
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-17-15-56.png" alt=""></li>
+<img src="img/2021-01-08-17-15-56.png" alt=""></li>
 <li>Combine multiple 3D volumes into one 3D volume
 <ul>
 <li>
 <p>Treat each of the sequence as separate channels. There could be more or less than 3 sequences.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-17-20-36.png" alt=""></p>
+<p><img src="img/2021-01-08-17-20-36.png" alt=""></p>
 </li>
 <li>
 <p><strong>Image Registration technique</strong> can be used to ensure that the image are aligned with each others when all the channels are combined.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-17-22-49.png" alt=""></p>
+<p><img src="img/2021-01-08-17-22-49.png" alt=""></p>
 </li>
 <li>
 <p>Combining multiple channels for all slices</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-17-38-33.png" alt=""></p>
+<p><img src="img/2021-01-08-17-38-33.png" alt=""></p>
 </li>
 </ul>
 </li>
@@ -1017,11 +1017,11 @@ hue-6-2: #e6c07b
 <ul>
 <li>
 <p>2D Approach: we break up the 3D slices into multiple 2D slices. Each slides are passed through the segmentation and the result from each 2D slides are combined at the end. However, we might lose some information, i.e. cancer tissue usually covered by multiple 2D slides.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-17-40-16.png" alt=""></p>
+<p><img src="img/2021-01-08-17-40-16.png" alt=""></p>
 </li>
 <li>
 <p>3D Approach: It is impossible to pass the whole 3D sequences (not feasible). Instead, we break the whole 3D sequence into smaller 3D sub-volume then each of them is fed to the model (one at a time). This approach we lose the temporal context, i.e. if there is a cancer in a sub-volume, it is likely to be cancer around this sub-volume as well.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-17-45-47.png" alt=""></p>
+<p><img src="img/2021-01-08-17-45-47.png" alt=""></p>
 </li>
 </ul>
 </li>
@@ -1038,11 +1038,11 @@ hue-6-2: #e6c07b
 </li>
 <li>
 <p>For 2D approach, the network is trained on the input/output pair of 2D slice. However, you could lose come context between slices.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-23-06-19.png" alt=""></p>
+<p><img src="img/2021-01-08-23-06-19.png" alt=""></p>
 </li>
 <li>
 <p>For 3D approach, just replace all the 2D layers with 3D, i.e. 2D Conv =&gt; 3D Conv, 2D pooling layer =&gt; 3D pooling layer. The input is a 3D sub-volume.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-23-07-25.png" alt=""></p>
+<p><img src="img/2021-01-08-23-07-25.png" alt=""></p>
 </li>
 <li>
 <p>Additional Information:</p>
@@ -1063,7 +1063,7 @@ hue-6-2: #e6c07b
 <ul>
 <li>
 <p>Unlike the data augmentation in 2D, in segmentation, the transformation need to apply to both input and output and it need to be apply on 3D.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-23-50-52.png" alt=""></p>
+<p><img src="img/2021-01-08-23-50-52.png" alt=""></p>
 </li>
 </ul>
 <h3 id="loss-function-soft-dice-loss">Loss Function: Soft Dice Loss</h3>
@@ -1074,7 +1074,7 @@ hue-6-2: #e6c07b
 <li>P = the output from the model where <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></eq> is the predicted probability of tumor in pixel ith.</li>
 <li>G = ground truth (1:tumor, 0:normal)</li>
 </ul>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-23-52-16.png" alt=""></p>
+<p><img src="img/2021-01-08-23-52-16.png" alt=""></p>
 </li>
 <li>
 <p>Soft Dice Loss: it is very popular loss function for segmentation model and working well in the presence of the imbalance data which is usually the case for the segmentation problem, i.e. only a small fraction is a tumor region.</p>
@@ -1086,7 +1086,7 @@ hue-6-2: #e6c07b
 </ul>
 </li>
 <li>High loss <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≡</mo></mrow><annotation encoding="application/x-tex">\equiv</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46375em;vertical-align:0em;"></span><span class="mrel">≡</span></span></span></span></eq> small overlap, Low loss <eq><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>≡</mo></mrow><annotation encoding="application/x-tex">\equiv</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46375em;vertical-align:0em;"></span><span class="mrel">≡</span></span></span></span></eq> high overlap,
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-23-56-30.png" alt=""></li>
+<img src="img/2021-01-08-23-56-30.png" alt=""></li>
 </ul>
 </li>
 </ul>
@@ -1098,13 +1098,13 @@ hue-6-2: #e6c07b
 <li>Example 1: The model trained with US patient's data won't work with the patient from India.</li>
 <li>Example 2: Resolution in brain MRI scan are much different across hospital.</li>
 </ul>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-09-00-05-38.png" alt=""></p>
+<p><img src="img/2021-01-09-00-05-38.png" alt=""></p>
 </li>
 <li>
 <p>External Validation: testing the model on the test sample from the new population. Note that the internal validation is drawn from the same population as the training and validation set.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-09-00-06-54.png" alt=""></p>
+<p><img src="img/2021-01-09-00-06-54.png" alt=""></p>
 <p>To overcome the generalization problem, we can fine-tune the model using a fraction of data from the new population.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-09-11-02-41.png" alt=""></p>
+<p><img src="img/2021-01-09-11-02-41.png" alt=""></p>
 </li>
 </ul>
 <h3 id="measuring-patient-outcomes-auroc--dice-score--decision-curve-analysis--randomized-controlled-trials">Measuring Patient Outcomes: AUROC / Dice Score / Decision Curve Analysis / Randomized Controlled Trials</h3>
@@ -1115,11 +1115,11 @@ hue-6-2: #e6c07b
 <li>Decision Curve Analysis can help quantify the net benefit of using a model to guide patient care.</li>
 <li>Randomized Control Trial: we compare patient outcomes for patients on whom the AI algorithm is applied versus those on whom the AI algorithm is not applied.</li>
 </ul>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-09-11-52-26.png" alt=""></p>
+<p><img src="img/2021-01-09-11-52-26.png" alt=""></p>
 </li>
 <li>
 <p>Bias Model? In the real world, we would want to analyze the effect of the model not just overall, but also on subgroups of the population. This would include patients of different ages, sex, and socioeconomic status.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-09-11-57-35.png" alt=""></p>
+<p><img src="img/2021-01-09-11-57-35.png" alt=""></p>
 </li>
 </ul>
 <hr>
@@ -1265,8 +1265,8 @@ plt.show()
   cam = cam / cam.max()
   <span class="hljs-keyword">return</span> cam
 </div></code></pre>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-14-34-29.png" alt="">
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-07-14-34-50.png" alt=""></p>
+<p><img src="img/2021-01-07-14-34-29.png" alt="">
+<img src="img/2021-01-07-14-34-50.png" alt=""></p>
 </li>
 </ul>
 <hr>
@@ -1274,7 +1274,7 @@ plt.show()
 <ul>
 <li>
 <p>Topics: Accuracy, Prevalence, Specificity, Sensitivity, PPV &amp; NPV, ROC, AUCROC, and confidence interval using the imbalance sample as an example.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-08-42-59.png" alt=""></p>
+<p><img src="img/2021-01-08-08-42-59.png" alt=""></p>
 </li>
 </ul>
 <h3 id="true-positives-false-positives-true-negatives-and-false-negatives">True Positives, False Positives, True Negatives, and False Negatives:</h3>
@@ -1308,7 +1308,7 @@ plt.show()
 <ul>
 <li>The area under the ROC curve is also called AUCROC or C-statistic and is a measure of goodness of fit. In medical literature this number also gives the probability that a randomly selected patient who experienced a condition had a higher risk score than a patient who had not experienced the event. This summarizes the model output across all thresholds, and provides a good sense of the discriminative power of a given model.</li>
 </ul>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-12-48-54.png" alt=""></p>
+<p><img src="img/2021-01-08-12-48-54.png" alt=""></p>
 </li>
 </ul>
 <h3 id="confidence-interval">Confidence Interval</h3>
@@ -1329,7 +1329,7 @@ plt.show()
 </li>
 <li>
 <p>High scores for both show that the classifier is returning accurate results (high precision), as well as returning a majority of all positive results (high recall).</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-12-54-53.png" alt=""></p>
+<p><img src="img/2021-01-08-12-54-53.png" alt=""></p>
 </li>
 </ul>
 </li>
@@ -1347,7 +1347,7 @@ plt.show()
 </li>
 <li>
 <p>The sklearn library has a utility calibration_curve for generating a calibration plot. Let's use it and take a look at our model's calibration:</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-12-57-43.png" alt=""></p>
+<p><img src="img/2021-01-08-12-57-43.png" alt=""></p>
 </li>
 </ul>
 <h2 id="assignment-3-segmentation-model-for-mri-scan-toc">Assignment 3: Segmentation Model for MRI Scan <a href="#table-of-contents">TOC</a></h2>
@@ -1366,7 +1366,7 @@ plt.show()
 <li>2: t1gd: &quot;T1-weighted with gadolinium contrast enhancement&quot; (T1-Gd)</li>
 <li>3: T2w: &quot;T2-weighted&quot;</li>
 </ul>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-09-15-25-15.png" alt=""></p>
+<p><img src="img/2021-01-09-15-25-15.png" alt=""></p>
 </li>
 <li>
 <p>Label data: a 3D array with the shape of (240, 240, 155). The integer values in this array indicate the &quot;label&quot; for each voxel in the corresponding image files:</p>
@@ -1376,7 +1376,7 @@ plt.show()
 <li>2: non-enhancing tumor (green)</li>
 <li>3: enhancing tumor (blue)</li>
 </ul>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-09-15-36-48.png" alt=""></p>
+<p><img src="img/2021-01-09-15-36-48.png" alt=""></p>
 </li>
 </ul>
 </li>
@@ -1435,17 +1435,17 @@ image_generator = ImageDataGenerator(
 <ul>
 <li>Before: The dimensions of the image are 1024 pixels width and 1024 pixels height, one single color channel. The maximum pixel value is 1.0000 and the minimum is 0.0000. The mean value of the pixels is 0.4669 and the standard deviation is 0.2492
 <ul>
-<li><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-18-05-31.png" alt=""></li>
+<li><img src="img/2021-01-06-18-05-31.png" alt=""></li>
 </ul>
 </li>
 <li>After: The dimensions of the image are 320 pixels width and 320 pixels height.The maximum pixel value is 2.1455 and the minimum is -1.8822. The mean value of the pixels is -0.0000 and the standard deviation is 1.0000
 <ul>
-<li><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-18-05-49.png" alt=""></li>
+<li><img src="img/2021-01-06-18-05-49.png" alt=""></li>
 </ul>
 </li>
 <li>Comparing the distribution of the pixel before and after standardization:
 <ul>
-<li><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-18-15-12.png" alt=""></li>
+<li><img src="img/2021-01-06-18-15-12.png" alt=""></li>
 </ul>
 </li>
 </ul>
@@ -1474,7 +1474,7 @@ image_generator = ImageDataGenerator(
 <ul>
 <li>
 <p>Densenet: it is a covnet where each layer is connected to all other layers that are deeper in the network. The first layer is connected to the 2nd, 3rd, 4th etc. The second layer is connected to the 3rd, 4th, 5th etc.<br>
-<img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-06-21-43-13.png" alt=""></p>
+<img src="img/2021-01-06-21-43-13.png" alt=""></p>
 </li>
 <li>
 <p>Using the pretrained densenet model via Keras:</p>
@@ -1526,14 +1526,14 @@ valid_df.drop(valid_overlap_idxs, inplace=<span class="hljs-literal">True</span>
 <ul>
 <li>
 <p>Exploring the Layer of Brain MRI via IPython Widget. Each sample is a 3D volume. It has multiple layers (slice), where each slice is a 2D image.</p>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-14-55-51.png" alt=""></p>
+<p><img src="img/2021-01-08-14-55-51.png" alt=""></p>
 </li>
 <li>
 <p>Visualize the labels for a specific layer:</p>
 <ul>
 <li>0: for normal / 1: for edema / 2: for non-enhancing tumor / 3: for enhancing tumor</li>
 </ul>
-<p><img src="file:///c:\Users\phumengam\Desktop\learn_everything\Coursera\Cousera-AI-for-Medical\img\2021-01-08-14-58-10.png" alt=""></p>
+<p><img src="img/2021-01-08-14-58-10.png" alt=""></p>
 </li>
 </ul>
 <h2 id="lab-32-extract-a-sub-section-of-the-data">Lab 3.2: Extract a sub-section of the data</h2>
