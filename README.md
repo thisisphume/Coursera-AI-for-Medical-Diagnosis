@@ -1,7 +1,7 @@
 # Coursera: AI for Medical Course
 Summarize, assignment (Jupyter notebook), labs (Jupyter Notebook) from the Coursera's AI for Medical Course.
 
-![](img/2021-01-09-19-23-42.png)
+<p align+"center"><img src="img/2021-01-09-19-23-42.png" alt="" width="400" ></p>
 
 # Table of Contents
 - [Coursera: AI for Medical Course](#coursera-ai-for-medical-course)
