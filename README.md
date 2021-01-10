@@ -601,7 +601,7 @@ $$DC(f, x, y) = \frac{1}{N} \sum_{c=1}^{C} \left ( DC_{c}(f, x, y) \right )$$
     # Adjust subplot parameters to give specified padding
     plt.tight_layout()   
     ```
-  - Image Preprocessing in Keras: Standardize the data using Keras's `ImageDataGenerator` function. Each image will have the mean value of the pixel of 0 and the standard deviation of 1, i.e.  <!-- $z_i = (x_i - \mu) / \sigma$ --> <img style="transform: translateY(0.1em); background: white;" src=" svg\4RuRezUAYK.svg">.
+  - Image Preprocessing in Keras: Standardize the data using Keras's `ImageDataGenerator` function. Each image will have the mean value of the pixel of 0 and the standard deviation of 1, i.e.  <!-- $z_i = (x_i - \mu) / \sigma$ --> <img style="transform: translateY(0.1em); background: white;" src="svg/4RuRezUAYK.svg">.
     ```python
     # Normalize images
     image_generator = ImageDataGenerator(
