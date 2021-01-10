@@ -10,43 +10,51 @@ Summarize, assignment (Jupyter notebook), labs (Jupyter Notebook) from the Cours
   - [Week 1: Summary](#week-1-summary)
     - [Application of Computer Vision to Medical Diagnosis](#application-of-computer-vision-to-medical-diagnosis)
     - [Building and Training a Model for Medical Diagnosis](#building-and-training-a-model-for-medical-diagnosis)
-      - [Challenge 1: Class Imbalance - More Normal example than Mass's example.](#challenge-1-class-imbalance---more-normal-example-than-masss-example)
-      - [Challenge 2: Multi-Task Classifier (A simplest case of multi-task learning)](#challenge-2-multi-task-classifier-a-simplest-case-of-multi-task-learning)
-      - [Challenge 3: Dataset Size - Medical image datasets typically have 10,000 to 100,000 examples.](#challenge-3-dataset-size---medical-image-datasets-typically-have-10000-to-100000-examples)
-    - [Model Testing](#model-testing)
+    - [3 Key Challenges: Class imbalance, Multi-Task, Dataset Size](#3-key-challenges-class-imbalance-multi-task-dataset-size)
+      - [**Challenge 1: Class Imbalance - Weighted Loss & Resampling**](#challenge-1-class-imbalance---weighted-loss--resampling)
+      - [Challenge 2: Multi-Task Learning and Loss](#challenge-2-multi-task-learning-and-loss)
+      - [Challenge 3: Dataset Size - Transfer Learning and Data Augmentation](#challenge-3-dataset-size---transfer-learning-and-data-augmentation)
+    - [Model Testing: Data Splitting (Independently) and Minority Sampling](#model-testing-data-splitting-independently-and-minority-sampling)
     - [Ground truth or Consensus Voting (in medical field)](#ground-truth-or-consensus-voting-in-medical-field)
   - [Week 2: Summary](#week-2-summary)
-    - [Key Evaluation Metrics](#key-evaluation-metrics)
-    - [PPV and NPV](#ppv-and-npv)
+    - [Accuracy / Sensitivity / Specificity](#accuracy--sensitivity--specificity)
+    - [PPV P(disease|+) and NPV P(normal|- )](#ppv-pdisease-and-npv-pnormal--)
     - [Confusion Matrix](#confusion-matrix)
     - [ROC Curve and Threshold](#roc-curve-and-threshold)
-    - [Sampling from the total population](#sampling-from-the-total-population)
+    - [Confidence Interval (see assignment 2)](#confidence-interval-see-assignment-2)
   - [Week 3: Summary](#week-3-summary)
     - [MRI Lab](#mri-lab)
-    - [MRI Data](#mri-data)
-    - [Segmentation](#segmentation)
+    - [MRI Data: 4D (sequences of 3D volume)](#mri-data-4d-sequences-of-3d-volume)
+    - [Segmentation: 2D and 3D Approach](#segmentation-2d-and-3d-approach)
     - [2D and 3D U-Net](#2d-and-3d-u-net)
     - [Data Augmentation for Segmentation](#data-augmentation-for-segmentation)
-    - [Loss Function](#loss-function)
+    - [Loss Function: Soft Dice Loss](#loss-function-soft-dice-loss)
     - [Practical Consideration](#practical-consideration)
-    - [Measuring Patient Outcomes](#measuring-patient-outcomes)
+    - [Measuring Patient Outcomes: AUROC / Dice Score / Decision Curve Analysis / Randomized Controlled Trials](#measuring-patient-outcomes-auroc--dice-score--decision-curve-analysis--randomized-controlled-trials)
 - [Assignment Overview](#assignment-overview)
   - [Assignment 1:  CXR Classification via Densenet](#assignment-1--cxr-classification-via-densenet)
     - [Key Processes:](#key-processes)
+    - [Visualizing learning with GradCAM (2016)](#visualizing-learning-with-gradcam-2016)
   - [Assignment 2: Evaluation of Diagnostic Models](#assignment-2-evaluation-of-diagnostic-models)
+    - [True Positives, False Positives, True Negatives, and False Negatives:](#true-positives-false-positives-true-negatives-and-false-negatives)
+    - [**Prevalence:**](#prevalence)
+    - [**Sensitivity and specificity**](#sensitivity-and-specificity)
+    - [ROC](#roc)
+    - [Confidence Interval](#confidence-interval)
+    - [Precision-Recall / F1](#precision-recall--f1)
+    - [Calibration](#calibration)
   - [Assignment 3: Segmentation Model for MRI Scan](#assignment-3-segmentation-model-for-mri-scan)
     - [Data: there are 484 training images (80:20 training-testing split).](#data-there-are-484-training-images-8020-training-testing-split)
     - [Data Pre-processing](#data-pre-processing)
-  - [Metrics: Dice Similarity Coefficient](#metrics-dice-similarity-coefficient)
+    - [Metrics: Dice Similarity Coefficient](#metrics-dice-similarity-coefficient)
 - [Labs](#labs)
-  - [Lab 1.1](#lab-11)
+  - [Lab 1.1: Exploring the CXR data](#lab-11-exploring-the-cxr-data)
   - [Lab 1.2: Loss function (Binary, Weighted Binary, Weighted Multi-Class problem)](#lab-12-loss-function-binary-weighted-binary-weighted-multi-class-problem)
   - [Lab 1.3: Introduction to Densenet](#lab-13-introduction-to-densenet)
   - [Lab 1.4: Checking if there is Data Leakage](#lab-14-checking-if-there-is-data-leakage)
   - [Lab 3.1: Exploring Brain MRI data](#lab-31-exploring-brain-mri-data)
   - [Lab 3.2: Extract a sub-section of the data](#lab-32-extract-a-sub-section-of-the-data)
   - [Lab 3.3: Creating a basic U-Net using Keras](#lab-33-creating-a-basic-u-net-using-keras)
-
 # Key Concepts
 
 ## Week 1: Summary
@@ -71,12 +79,12 @@ Objective: we want to build and train a model to detect the pneumonia, lung canc
    
     ![](img/2021-01-06-18-20-13.png)
 
-- 3 Key Challenges: Class imbalance, Multi-Task, Dataset Size
+### 3 Key Challenges: Class imbalance, Multi-Task, Dataset Size
    
-#### Challenge 1: Class Imbalance - More Normal example than Mass's example.
+#### **Challenge 1: Class Imbalance - Weighted Loss & Resampling**
 Imbalance problem is a very common problem in medical field. We usually have less sample from the anomaly/defect class. For example, the eye disease dataset, there are 30% of Diabetic Retinopathy and 70% of Non Diabetic Retinopathy. This yields a model that starts to predict a low probability of disease for everybody, if we are using the generic binary loss. 
   
-![](img/2021-01-06-17-50-22.png)
+  ![](img/2021-01-06-17-50-22.png)
 
 
 Consider the binary Cross-entropy loss,  
@@ -104,7 +112,7 @@ Impact of Class Imbalance on Loss Calculation: we can see in the figure below th
 
 **Solution 2**: Resampling (Over-sampling / Under-sampling) the data such that we have the same number of observation for each class. Then, we can use standard binary cross-entropy loss.
 
-#### Challenge 2: Multi-Task Classifier (A simplest case of multi-task learning)
+#### Challenge 2: Multi-Task Learning and Loss
 Have model that can perform multiple task i.e. "Mass vs No-Mass", Pneumonia vs No-Pneumonia", "Edema vs No-Edema". The benefit of multi-task model is that each task might share information that could enable the model to generalize better on each original task. 
 
 Assume we have 3 classification tasks, the output is a 3-dimensional vector. We are using the Weighted Multi-Label loss which is just the sum of the all individual loss. Note that, the weight of each loss are different for different label. 
@@ -120,8 +128,11 @@ Addition resource on Multi-Task Learning: [An Overview of Multi-Task Learning in
   - MTL in DL: Fully-Adaptive Feature Sharing / Cross-stitch Networks / Low Supervision / Slice Network / ...
 
 
-#### Challenge 3: Dataset Size - Medical image datasets typically have 10,000 to 100,000 examples.
-![](img/2021-01-06-20-39-12.png)
+#### Challenge 3: Dataset Size - Transfer Learning and Data Augmentation
+
+Medical image datasets typically have 10,000 to 100,000 examples.
+  
+  ![](img/2021-01-06-20-39-12.png)
 
 CNN is one of the most common method to analyze the medical Imaging problem, such as 2D X-ray, CT Scan, and medical Signal processing, but it is very data hungry. There are many CNN architecture. The standard procedure is to try them all and see which one works best. 
   
@@ -141,7 +152,7 @@ CNN is one of the most common method to analyze the medical Imaging problem, suc
    - Do augmentation keep the label the same? i.e. mirroring the chest x-ray would make the heart appear on the right which is not good. 
 
 
-### Model Testing
+### Model Testing: Data Splitting (Independently) and Minority Sampling
 **Splitting** the data (in this order) into testing set, validation set, and training set. The cross-validation is used to reduce the variability in the estimate of the model's performance. To prevent the model being overly-optimistic, the data must be split in such a way that they are all independent. For this example, a patient can have multiple scan. We must ensure that there is no patient overlap between these split. 
   ![](img/2021-01-06-22-44-55.png)
   ![](img/2021-01-06-22-45-07.png) 
@@ -166,7 +177,7 @@ CNN is one of the most common method to analyze the medical Imaging problem, suc
 ***
 ## Week 2: Summary
 
-### Key Evaluation Metrics
+### Accuracy / Sensitivity / Specificity
 
 Accuracy Metric:
 $$Accuracy = \frac{\text{Sample Correctly Classified}}{\text{Total number of sample}}$$
@@ -196,7 +207,7 @@ We can view the accuracy as the weighted average of sensitivity and specificity.
   ![](img/2021-01-07-18-09-05.png)
 
 
-### PPV and NPV
+### PPV P(disease|+) and NPV P(normal|- )
 - Positive predicted value (PPV), i.e. P( disease | + ). It is related to the concept of sensitivity. 
 - Negative predicted value (NPV), i.e. P( normal | - ). It is related to the concept of specificity.
 
@@ -226,7 +237,7 @@ Example:
     - Specificity = P(-|normal) = 7/8 = 0.88
     ![](img/2021-01-08-00-04-02.png)
 
-### Sampling from the total population
+### Confidence Interval (see assignment 2)
 - Getting the performance of the model on the whole population is infeasible, i.e. getting the *population accuracy* (unknown) $p$ of the chest x-ray model based on all 50,000 patients in the hospital. 
 - Using the small sample to get the estimated accuracy $\hat{p}$. We can obtain the 95% confidence interval of this estimated accuracy via repeated sample. In practice, we calculate the CI based on one sample. The larger sample size have a smaller CI. 
   ![](img/2021-01-08-00-23-08.png)
@@ -238,7 +249,7 @@ Example:
 ### MRI Lab
 - See the Lab 3.1: exploring 3D MRI brain scans in the lab section
 
-### MRI Data
+### MRI Data: 4D (sequences of 3D volume)
 - An MRI imaging sequence is a 3D volume. Each 2D image is called *slice*.
 - A MRI sample consists of multiple imaging sequences (multiple 3D volumes).
     ![](img/2021-01-08-17-15-56.png)
@@ -255,7 +266,7 @@ Example:
 
     ![](img/2021-01-08-17-38-33.png)
 
-### Segmentation
+### Segmentation: 2D and 3D Approach
 - It is the process of finding the boundary of various tissue. Here, we are finding the boundary of the cancer. 
   - 2D Approach: we break up the 3D slices into multiple 2D slices. Each slides are passed through the segmentation and the result from each 2D slides are combined at the end. However, we might lose some information, i.e. cancer tissue usually covered by multiple 2D slides.
     
@@ -266,26 +277,24 @@ Example:
     ![](img/2021-01-08-17-45-47.png)
 
 ### 2D and 3D U-Net
-- U-Net is one of the most popular Segmentation Architecture.
-  - It can achieve good result even with 100 samples.
-  - It consists of 2 parts: 
-    - Contracting path: the feature map get smaller. It consists of repeating convolution (called down convolution) and pooling layers.
-    - expanding path: it takes small features maps through series of up-sampling and up convolution layers to get back to the original size of the image. 
-    - Output: the probability of being a tumor is assigned for each pixel.
-  - The network is trained on the input/output pair of 2D slice. However, you could lose come context between slices.
+- U-Net is one of the most popular Segmentation Architecture. It can achieve good result even with 100 samples. It consists of 2 parts: 
+  - Contracting path: the feature map get smaller. It consists of repeating convolution (called down convolution) and pooling layers.
+  - expanding path: it takes small features maps through series of up-sampling and up convolution layers to get back to the original size of the image. 
+  - Output: the probability of being a tumor is assigned for each pixel.
+- For 2D approach, the network is trained on the input/output pair of 2D slice. However, you could lose come context between slices.
     
     ![](img/2021-01-08-23-06-19.png)
   
-  - For 3D, just replace all the 2D layers with 3D, i.e. 2D Conv => 3D Conv, 2D pooling layer => 3D pooling layer. The input is a 3D sub-volume.
+- For 3D approach, just replace all the 2D layers with 3D, i.e. 2D Conv => 3D Conv, 2D pooling layer => 3D pooling layer. The input is a 3D sub-volume.
 
     ![](img/2021-01-08-23-07-25.png)
 
 - Additional Information:
   - For a brief video introduction to U-Net by the original creators, Olaf Ronneberger, Philipp Fischer, Thomas Brox, please visit their site [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/).
 
-If you would like more detail, start with this blog post by Heet Sankesara [“UNet”](https://towardsdatascience.com/u-net-b229b32b4a71).  
+  - More detail from the blog post by Heet Sankesara [“UNet”](https://towardsdatascience.com/u-net-b229b32b4a71).  
 
-To go deeper, you can read the original research paper [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf) by Olaf Ronneberger, Philipp Fischer, Thomas Brox
+  - To go deeper, you can read the original research paper [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/pdf/1505.04597.pdf) by Olaf Ronneberger, Philipp Fischer, Thomas Brox
 
 
 ### Data Augmentation for Segmentation
@@ -293,7 +302,7 @@ To go deeper, you can read the original research paper [U-Net: Convolutional Net
 
   ![](img/2021-01-08-23-50-52.png)
 
-### Loss Function
+### Loss Function: Soft Dice Loss
 - Example (in 2D), 
   - P = the output from the model where $p_i$ is the predicted probability of tumor in pixel ith.
   - G = ground truth (1:tumor, 0:normal)
@@ -322,7 +331,7 @@ To go deeper, you can read the original research paper [U-Net: Convolutional Net
 
   ![](img/2021-01-09-11-02-41.png)
 
-### Measuring Patient Outcomes
+### Measuring Patient Outcomes: AUROC / Dice Score / Decision Curve Analysis / Randomized Controlled Trials
 - In the model development perspective, we can look at the AUROC (classification) and Dice score (Soft Dice Loss for Segmentation). However, in real world (deployment), we want to see how effective the model is on the real patient. Decision Curve Analysis or Randomized Controlled Trials can be used to measure whether the model actually help improve the patient's health outcomes. 
   -  Decision Curve Analysis can help quantify the net benefit of using a model to guide patient care.
   -  Randomized Control Trial: we compare patient outcomes for patients on whom the AI algorithm is applied versus those on whom the AI algorithm is not applied. 
@@ -425,7 +434,7 @@ $$\mathcal{L}_{cross-entropy}(\mathcal{D}) = - \frac{1}{N}\big( \sum_{\text{posi
     3. You can use the `ReduceLROnPlateau` to slowly decay the learning rate for your model as it stops getting better on a metric such as `val_loss` to fine-tune the model in the final steps of training.
     4. You can use the `EarlyStopping` callback to stop the training job when your model stops getting better in it's validation loss. You can set a `patience` value which is the number of epochs the model does not improve after which the training is terminated. This callback can also conveniently restore the weights for the best metric at the end of training to your model.
 
-- Visualizing learning with [GradCAM (2016)](https://arxiv.org/abs/1610.02391)
+### Visualizing learning with [GradCAM (2016)](https://arxiv.org/abs/1610.02391)
   - A GradCAM's technique to produce a heatmap highlighting the important regions in the image for predicting the pathological condition. This is done by extracting the gradients of each predicted class, flowing into our model's final convolutional layer.
   - It is worth mentioning that GradCAM does not provide a full explanation of the reasoning for each classification probability. However, it is still a useful tool for "debugging" our model and augmenting our prediction so that an expert could validate that a prediction is indeed due to the model focusing on the right regions of the image.
   
@@ -466,17 +475,21 @@ $$\mathcal{L}_{cross-entropy}(\mathcal{D}) = - \frac{1}{N}\big( \sum_{\text{posi
 
   ![](img/2021-01-08-08-42-59.png)
 
-- True Positives, False Positives, True Negatives, and False Negatives: these metrics will depend on the choice of threshold, `thresholded_preds = pred >= threshold`
+### True Positives, False Positives, True Negatives, and False Negatives: 
+
+These metrics will depend on the choice of threshold, `thresholded_preds = pred >= threshold`
   - true positive (TP): Predict positive, and the actual label also positive. `TP = np.sum((y == 1) & (thresholded_preds == 1))`
   - false positive (FP): Predict positive, **but** the actual label is negative. `FP = np.sum((y == 0) & (thresholded_preds == 1))`
   - true negative (TN): Predict negative, and the actual label is also negative. `TN = np.sum((y == 0) & (thresholded_preds == 0))`
   - false negative (FN): Predict negative, **but** the label is actually positive. `FN = np.sum((y == 1) & (thresholded_preds == 0))`
 
-- **Prevalence:** the proportion of positive examples. $$prevalence = \frac{1}{N} \sum_{i} y_i \text{    , where    } y_i = 1 \text{ when the obs. is positive (disease)}$$
+### **Prevalence:** 
+The proportion of positive examples. $$prevalence = \frac{1}{N} \sum_{i} y_i \text{    , where    } y_i = 1 \text{ when the obs. is positive (disease)}$$
 
 
 
-- **Sensitivity and specificity** are used to evaluate how well the model predicts positives for patients with the condition and negatives for cases that actually do not have the condition.
+### **Sensitivity and specificity** 
+They are used to evaluate how well the model predicts positives for patients with the condition and negatives for cases that actually do not have the condition.
   - Sensitivity is the probability that our test outputs positive given that the case is actually positive. Sensitivity only considers output on people in the positive class.
   - Specificity is the probability that the test outputs negative given that the case is actually negative. Specificity only considers output on people in the negative class.
   
@@ -491,15 +504,17 @@ $$\mathcal{L}_{cross-entropy}(\mathcal{D}) = - \frac{1}{N}\big( \sum_{\text{posi
 
     $$NPV = \frac{\text{true negatives}}{\text{true negatives} + \text{false negatives}}$$
 
+### ROC
 - The Receiver Operating Characteristic (ROC) curve is created by plotting the true positive rate (TPR) against the false positive rate (FPR) at various threshold settings. The ideal point is at the top left, with a true positive rate of 1 and a false positive rate of 0. 
 
   - The area under the ROC curve is also called AUCROC or C-statistic and is a measure of goodness of fit. In medical literature this number also gives the probability that a randomly selected patient who experienced a condition had a higher risk score than a patient who had not experienced the event. This summarizes the model output across all thresholds, and provides a good sense of the discriminative power of a given model.
   
   ![](img/2021-01-08-12-48-54.png)
 
-- Confidence Interval:
-  - The bootstrap (stratified random sampling) method is used to estimates the uncertainty by resampling the dataset with replacement. 
+### Confidence Interval
+The bootstrap (stratified random sampling) method is used to estimates the uncertainty by resampling the dataset with replacement. 
 
+### Precision-Recall / F1
 - Precision-Recall is a useful measure of success of prediction when the classes are very imbalanced. 
   - Precision is a measure of result relevancy and that is equivalent to our previously defined PPV. 
   - Recall is a measure of how many truly relevant results are returned and that is equivalent to our previously defined sensitivity measure.
@@ -510,7 +525,7 @@ $$\mathcal{L}_{cross-entropy}(\mathcal{D}) = - \frac{1}{N}\big( \sum_{\text{posi
 
 - F1 score is the harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0. 
 
-- Calibration
+### Calibration
   - When performing classification we often want not only to predict the class label, but also obtain a probability of each label. This probability would ideally give us some kind of confidence on the prediction. In order to observe how our model's generated probabilities are aligned with the real probabilities, we can plot what's called a calibration curve.
 
   - In order to generate a calibration plot, we first bucketize our predictions to a fixed number of separate bins (e.g. 5) between 0 and 1. We then calculate a point for each bin: the x-value for each point is the mean for the probability that our model has assigned to these points and the y-value for each point fraction of true positives in that bin. We then plot these points in a linear plot. A well-calibrated model has a calibration curve that almost aligns with the y=x line.
@@ -544,7 +559,7 @@ $$\mathcal{L}_{cross-entropy}(\mathcal{D}) = - \frac{1}{N}\big( \sum_{\text{posi
 - **Randomly** sampled sub-volumes of shape [160,160,16] from our images to generate spatially consistent sub-volumes of the data because fitting the entire volume won't fit inside the smaller memory/GPU. The patch must have at most 95% non-tumor regions (background).
 - Standardization (mean 0 and stDev 1): standardizes the values across each channel and each Z plane to have a mean of zero and standard deviation of 1.
 
-## Metrics: Dice Similarity Coefficient
+### Metrics: Dice Similarity Coefficient
 -  A common loss for segmentation tasks is the Dice similarity coefficient, which is a measure of how well two contours overlap. It ranges from 0 (complete mismatch) to 1 (perfect match).
 $$\text{DSC}(A, B) = \frac{2 \times |A \cap B|}{|A| + |B|}.$$
 
@@ -560,7 +575,7 @@ $$DC(f, x, y) = \frac{1}{N} \sum_{c=1}^{C} \left ( DC_{c}(f, x, y) \right )$$
 
 # Labs
 
-## Lab 1.1
+## Lab 1.1: Exploring the CXR data
 - Exploring the [ChestX-ray8 (2017)](https://arxiv.org/abs/1705.02315) dataset.
   - Data types? null?: `df.info()`
   - Unique IDs check: `print(f"The total patient ids are {df.PatientId.count()}, from those the unique ids are {df.PatientId.nunique()} ")`
