@@ -1,4 +1,4 @@
-# Coursera: AI for Medical Course
+# Coursera: AI for Medical Diagnosis
 Concept summary, assignment (Jupyter notebook), labs (Jupyter Notebook) from the Coursera's AI for Medical Course.
 
 <p align+"center"><img src="img/2021-01-09-19-23-42.png" alt="" width="400" ></p>
